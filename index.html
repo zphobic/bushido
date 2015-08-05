@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- remote links wget'd locally for local testing
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+
+  <link rel="stylesheet" href="bushi.css" type="text/css">
+
+  <title>Bushido Game</title>
+</head>
+
+<body>
+  <!-- remote links wget'd locally for local testing
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  -->
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+
+  <script src="util.js" type="text/javascript"></script>
+  <script src="names.js" type="text/javascript"></script>
+  <script src="calendar.js" type="text/javascript"></script>
+  <script src="land.js" type="text/javascript"></script>
+  <script src="actions.js" type="text/javascript"></script>
+  <script src="game_events.js" type="text/javascript"></script>
+  <script src="pawn.js" type="text/javascript"></script>
+  <script src="clan.js" type="text/javascript"></script>
+  <script src="world.js" type="text/javascript"></script>
+  <script src="game.js" type="text/javascript"></script>
+
+<script>
+  "use strict";
+  var event = new Event('names_finished');
+  var names = new Names(event);
+  var game_page = new game(names);
+  document.addEventListener('names_finished', game_page.start_game.bind(game_page), false);
+</script>
+
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <div><h3>Bushido</h3></div>
+      <div id="headerLinks">
+        <span id="autosaveTooltip">autosaving...</span>
+        <a id="pauseButton" href="#" onclick="game_page.togglePause();">pause</a>
+        <a href="#" onclick="$('#changelogDiv').toggle();">Version pre-alpha 1</a>
+      </div>
+    </div>
+
+    <div id="test"></div>
+    <div id="leftColumn" class="column">
+      <div id="population"></div>
+      <div id="clan_info" class="container"></div>
+    </div>
+
+    <!-- MID -->
+    <div id="midColumn" class="column">
+      <div id="tabs">
+        <ul class="nav nav-tabs">
+          <li class="active  ordertab"><a data-toggle="tab" href="#orders">Orders</a></li>
+          <li class=" landtab"><a data-toggle="tab" href="#land">Land</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="orders" class="tab-pane fade in active">
+            <h4>Command Samurai</h4>
+            <div>
+              <input type="button" id="ordersurveybtn" class="btn btn-default"
+               onclick="game_page.clan.do(Order.survey)" value="Survey Land"/>
+              <button id="orderpatrolbtn" class="btn btn-default"
+               onclick="game_page.clan.do(Order.patrol)">Patrol Land</button>
+            </div>
+            <div>
+              <button id="orderstudybtn" class="btn btn-default"
+               onclick="game_page.clan.do(Order.study)">Study Bushido</button>
+              <button id="ordertrainbtn" class="btn btn-default"
+               onclick="game_page.clan.do(Order.train)">Train for War</button>
+            </div>
+            <div>
+              <button id="orderauditbtn" class="btn btn-default"
+               onclick="game_page.clan.do(Order.audit)">Audit People</button>
+            </div>
+            <div>
+              <button id="orderauditbtn" class="btn btn-default"
+               onclick="game_page.clan.do(Order.explore)">Explore</button>
+            </div>
+
+            <div>Current Orders: <span id="current_orders">None</span></div>
+
+            <select name="select" id="specialselect">
+  <option value="value1">Value 1</option> 
+  <option value="value2" selected>Value 2</option>
+  <option value="value3">Value 3</option>
+</select>
+
+          </div>
+          <div id="land" class="tab-pane">
+            <h4>Owned Land</h4>
+            <div id="ownedland"></div>
+            <h4>Known Land</h4>
+            <div id="knownland"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div id="rightColumn" class="column">
+      <div>
+        <span id="calendar"></span>
+      </div>
+      <div id="description" class="logtop">
+        You are a leader of men.
+      </div>
+      <div id="clearLog">
+        <a id="clearLogHref" href="#" onClick="game.clearLog();">Clear log</a>
+      </div>
+      <div id="gameLog" class="log">
+        <!-- Log goes here -->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
